@@ -228,89 +228,6 @@ function initTouchControls(container, camera, controls) {
     });
 }
 
-// Создание 3D облаков для фона
-function initClouds() {
-    const container = document.getElementById('clouds-container');
-    if (!container) return;
-    
-    // Создаем сцену
-    const scene = new THREE.Scene();
-    scene.background = null;
-    
-    // Создаем камеру
-    const camera = new THREE.PerspectiveCamera(
-        45,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-    );
-    camera.position.z = 50;
-    
-    // Создаем рендерер
-    const renderer = new THREE.WebGLRenderer({ 
-        alpha: true,
-        antialias: true
-    });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    container.appendChild(renderer.domElement);
-    
-    // Создаем группу для облаков
-    const cloudsGroup = new THREE.Group();
-    scene.add(cloudsGroup);
-    
-    // Текстура облака
-    const textureLoader = new THREE.TextureLoader();
-    const cloudTexture = textureLoader.load('https://threejs.org/examples/textures/sprites/cloud.png');
-    
-    // Создаем несколько облаков (плоскостей с текстурой)
-    const cloudCount = 30;
-    for (let i = 0; i < cloudCount; i++) {
-        const cloud = new THREE.Mesh(
-            new THREE.PlaneGeometry(20, 20),
-            new THREE.MeshBasicMaterial({
-                map: cloudTexture,
-                transparent: true,
-                opacity: 0.8
-            })
-        );
-        
-        // Случайная позиция
-        cloud.position.x = Math.random() * 200 - 100;
-        cloud.position.y = Math.random() * 100 - 50;
-        cloud.position.z = Math.random() * 100 - 50;
-        
-        // Случайный размер
-        const scale = 0.5 + Math.random() * 1.5;
-        cloud.scale.set(scale, scale, 1);
-        
-        // Случайный поворот
-        cloud.rotation.z = Math.random() * Math.PI;
-        
-        cloudsGroup.add(cloud);
-    }
-    
-    // Анимация
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        // Медленно вращаем группу облаков
-        cloudsGroup.rotation.y += 0.0005;
-        
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-    
-    // Обработчик изменения размера окна
-    function onWindowResize() {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-    }
-    
-    window.addEventListener('resize', onWindowResize);
-}
-
 // Навигация по страницам и функциональность
 document.addEventListener('DOMContentLoaded', function() {
     // Показываем прелоадер
@@ -334,12 +251,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Переключаем тему
         document.body.classList.toggle('light-theme');
-        
-        // Если включен дневной режим, инициализируем облака
-        if (document.body.classList.contains('light-theme') && !window.cloudsInitialized) {
-            initClouds();
-            window.cloudsInitialized = true;
-        }
         
         // Убираем класс анимации после завершения
         setTimeout(() => {
@@ -414,10 +325,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Инициализация 3D модели Земли
     initEarthModel();
-    
-    // Инициализация облаков, если текущая тема дневная
-    if (document.body.classList.contains('light-theme')) {
-        initClouds();
-        window.cloudsInitialized = true;
-    }
 });
