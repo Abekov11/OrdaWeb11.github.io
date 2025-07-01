@@ -1,6 +1,5 @@
-/* style.css */
-/* Основные стили */
-* {
+
+ {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -48,7 +47,7 @@ body.light-theme {
     background: linear-gradient(135deg, #ffecec, #ffd6d6, #ffbdbd);
 }
 
-/* Переключатель языка */
+
 .language-toggle {
     position: relative;
     display: inline-block;
@@ -119,7 +118,7 @@ body.light-theme {
     display: block;
 }
 
-/* Небо с анимациями солнца и луны */
+
 .sky {
     position: fixed;
     top: 80px;
@@ -171,7 +170,7 @@ body:not(.light-theme) .sun-container {
     to { transform: rotate(360deg); }
 }
 
-/* Звездный фон */
+
 #starfield {
     position: fixed;
     top: 0;
@@ -202,7 +201,7 @@ body:not(.light-theme) #starfield {
     50% { opacity: 1; }
 }
 
-/* Баннер */
+
 .ad-banner {
     position: fixed;
     top: 120px;
@@ -273,7 +272,7 @@ body:not(.light-theme) #starfield {
     box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 }
 
-/* Анимация пульсации */
+
 @keyframes pulse-banner {
     0% { transform: scale(1); }
     50% { transform: scale(1.02); }
@@ -285,7 +284,7 @@ body:not(.light-theme) #starfield {
     box-shadow: 0 15px 40px rgba(209, 0, 0, 0.6);
 }
 
-/* ИИ-чат */
+
 .ai-chat-btn {
     position: fixed;
     bottom: 30px;
@@ -432,7 +431,7 @@ body:not(.light-theme) #starfield {
     background: #ff5252;
 }
 
-/* Админ-панель */
+
 .admin-panel {
     max-width: 1200px;
     margin: 0 auto;
@@ -640,7 +639,7 @@ body:not(.light-theme) #starfield {
     background: #6c757d !important;
 }
 
-/* Прелоадер */
+
 .preloader {
     position: fixed;
     top: 0;
@@ -685,7 +684,7 @@ body:not(.light-theme) #starfield {
     }
 }
 
-/* Навигация */
+
 nav {
     position: fixed;
     top: 0;
@@ -773,7 +772,6 @@ nav {
     padding: 0.5rem;
 }
 
-/* Переключатель темы с иконками */
 .theme-toggle-container {
     display: flex;
     align-items: center;
@@ -849,7 +847,7 @@ body.light-theme .theme-toggle-circle {
     background: #1a1a1a;
 }
 
-/* Боковое меню */
+
 .sidebar-menu {
     position: fixed;
     top: 0;
@@ -925,7 +923,7 @@ body.light-theme .theme-toggle-circle {
     visibility: visible;
 }
 
-/* Герой-секция */
+
 .hero {
     height: 100vh;
     display: flex;
@@ -995,7 +993,7 @@ body.light-theme .theme-toggle-circle {
     color: var(--light);
 }
 
-/* Контейнер для 3D Земли */
+
 #earth-container {
     position: absolute;
     top: 0;
@@ -1006,7 +1004,7 @@ body.light-theme .theme-toggle-circle {
     overflow: hidden;
 }
 
-/* Страницы */
+
 .page {
     display: none;
     padding: 6rem 5% 4rem;
@@ -1044,7 +1042,7 @@ body.light-theme .theme-toggle-circle {
     box-shadow: 0 0 10px var(--primary);
 }
 
-/* Главная страница */
+
 .welcome-content {
     max-width: 1000px;
     margin: 0 auto;
@@ -1092,7 +1090,7 @@ body.light-theme .theme-toggle-circle {
     margin-bottom: 0.5rem;
 }
 
-/* Страница: О колледже */
+
 .about-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1223,7 +1221,7 @@ body.light-theme .theme-toggle-circle {
     margin-bottom: 0.3rem;
 }
 
-/* Страница: Специальности */
+
 .specialties-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1279,7 +1277,7 @@ body.light-theme .theme-toggle-circle {
     margin-top: 1rem;
 }
 
-/* Страница: Студентам */
+
 .students-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1369,7 +1367,7 @@ body.light-theme .theme-toggle-circle {
     margin-bottom: 1rem;
 }
 
-/* Страница: Абитуриентам */
+
 .enrollee-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1437,7 +1435,7 @@ body.light-theme .theme-toggle-circle {
     gap: 1rem;
 }
 
-/* Страница: Преподаватели */
+
 .teachers-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1507,7 +1505,7 @@ body.light-theme .theme-toggle-circle {
     flex-shrink: 0;
 }
 
-/* Страница: Новости */
+
 .news-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1606,7 +1604,7 @@ body.light-theme .theme-toggle-circle {
     background: var(--primary);
 }
 
-/* Страница: Галерея */
+
 .gallery-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1653,7 +1651,7 @@ body.light-theme .theme-toggle-circle {
     transform: translateY(-5px);
 }
 
-/* Обновление для .gallery-image */
+
 .gallery-image {
     height: 200px;
     background-size: cover;
@@ -1665,12 +1663,12 @@ body.light-theme .theme-toggle-circle {
     border-radius: 15px 15px 0 0;
 }
 
-/* Скрываем иконки Font Awesome */
+
 .gallery-image i {
     display: none;
 }
 
-/* Анимация при наведении */
+
 .gallery-item {
     overflow: hidden;
 }
@@ -1686,7 +1684,7 @@ body.light-theme .theme-toggle-circle {
     border-radius: 0 0 15px 15px;
 }
 
-/* Страница: Контакты */
+
 .contact-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1800,7 +1798,7 @@ body.light-theme .theme-toggle-circle {
     color: var(--primary);
 }
 
-/* Адаптация для мобильных */
+
 @media (max-width: 1200px) {
     .ad-banner {
         display: none;
@@ -1847,7 +1845,7 @@ body.light-theme .theme-toggle-circle {
     }
 }
 
-/* Анимации */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
