@@ -1,0 +1,950 @@
+/* Небо с анимациями солнца и луны */
+.sky {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    z-index: -3;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sun-container, .moon-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    transform: translate(-50%, -50%);
+    transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.sun, .moon {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: rotate 30s linear infinite;
+}
+
+.sun {
+    background: radial-gradient(circle, #FFD700, #FFA500);
+    box-shadow: 0 0 40px #FFA500, 0 0 80px rgba(255, 165, 0, 0.5);
+}
+
+.moon {
+    background: radial-gradient(circle, #E0E0E0, #B0B0B0);
+    box-shadow: 0 0 30px rgba(224, 224, 224, 0.8);
+}
+
+body.light-theme .moon-container {
+    transform: translate(-50%, -50%) translateX(-200px);
+}
+
+body:not(.light-theme) .sun-container {
+    transform: translate(-50%, -50%) translateX(200px);
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Звездный фон */
+#starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -4;
+    transition: opacity 1s ease;
+}
+
+body.light-theme #starfield {
+    opacity: 0;
+}
+
+body:not(.light-theme) #starfield {
+    opacity: 1;
+}
+
+.star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--duration, 5s) infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+}
+
+/* Контейнер для 3D облаков */
+#clouds-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Под навигацией, но над фоном */
+    pointer-events: none;
+    opacity: 0.7;
+    display: none; /* По умолчанию скрыто */
+}
+
+body.light-theme #clouds-container {
+    display: block;
+}
+
+/* Остальные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+}
+
+:root {
+    --primary: #1e3a8a;
+    --secondary: #f59e0b;
+    --accent: #047857;
+    --light: #f8fafc;
+    --dark: #0f172a;
+    --space: #0b0f2c;
+    --card-bg: rgba(30, 58, 138, 0.4);
+    --text-color: #f8fafc;
+    --nav-bg: rgba(15, 23, 42, 0.85);
+    --page-bg: rgba(15, 23, 42, 0.6);
+}
+
+.light-theme {
+    --primary: #2563eb;
+    --secondary: #f97316;
+    --accent: #059669;
+    --light: #ffffff;
+    --dark: #1e293b;
+    --space: #dbeafe;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --text-color: #1e293b;
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --page-bg: rgba(255, 255, 255, 0.85);
+}
+
+body {
+    background: linear-gradient(135deg, #0b0f2c, #1a1f4e, #2a2f6e);
+    color: var(--text-color);
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+body.light-theme {
+    background: #00CED1;
+}
+
+/* Прелоадер */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading svg polyline {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.loading svg polyline#back {
+    fill: none;
+    stroke: #ff4d5033;
+}
+
+.loading svg polyline#front {
+    fill: none;
+    stroke: #f59e0b;
+    stroke-dasharray: 48, 144;
+    stroke-dashoffset: 192;
+    animation: dash_682 1.4s linear infinite;
+}
+
+@keyframes dash_682 {
+    72.5% {
+        opacity: 0;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Навигация */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    padding: 1.2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    color: var(--secondary);
+    font-size: 2rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.logo-text {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--secondary);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a.active {
+    background: rgba(245, 158, 11, 0.3);
+}
+
+.mobile-menu-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+/* Переключатель темы с иконками */
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.theme-toggle {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #f39c12, #f1c40f);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(243, 156, 18, 0.5);
+    transition: all 0.5s ease;
+}
+
+body.light-theme .theme-toggle {
+    background: linear-gradient(90deg, #3498db, #2c3e50);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+.theme-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: white;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.theme-icon.sun {
+    left: 8px;
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+
+body.light-theme .theme-icon.sun {
+    left: -20px;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.5);
+}
+
+.theme-icon.moon {
+    right: -20px;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.5);
+}
+
+body.light-theme .theme-icon.moon {
+    right: 8px;
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+
+.theme-toggle-circle {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+body.light-theme .theme-toggle-circle {
+    left: calc(100% - 27px);
+    background: #1a1f4e;
+}
+
+/* Боковое меню */
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    z-index: 1100;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease-in-out;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-menu.active {
+    right: 0;
+}
+
+.close-menu-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-bottom: 2rem;
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.menu-items a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-items a:hover {
+    background: rgba(245, 158, 11, 0.2);
+}
+
+.menu-items a i {
+    width: 25px;
+    text-align: center;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1090;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Герой-секция */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 5%;
+    max-width: 50%;
+    color: var(--text-color);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 1s ease-out;
+    color: var(--text-color);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    animation: fadeInUp 1s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--secondary);
+    color: var(--dark);
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease-out 0.4s forwards;
+    opacity: 0;
+    border: 2px solid var(--secondary);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: transparent;
+    color: var(--secondary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 20px rgba(245, 158, 11, 0.8);
+}
+
+/* Контейнер для 3D Земли */
+#earth-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Страницы */
+.page {
+    display: none;
+    padding: 6rem 5% 4rem;
+    min-height: 100vh;
+    background: var(--page-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    margin: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--secondary);
+    position: relative;
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--secondary);
+}
+
+/* Главная страница */
+.welcome-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.welcome-content p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcome-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+}
+
+.feature i {
+    font-size: 3rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.feature h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Страница: О колледже */
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.about-history, .about-mission, .about-leadership {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 2.5rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-history h3, .about-mission h3, .about-leadership h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+    text-align: center;
+}
+
+.about-history p, .about-mission p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--secondary);
+}
+
+.timeline-item {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+}
+
+.timeline-date {
+    font-weight: bold;
+    color: var(--secondary);
+    min-width: 60px;
+    font-size: 1.2rem;
+}
+
+.timeline-content {
+    flex: 1;
+}
+
+.timeline-content h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.values {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.value-card {
+    background: rgba(30, 58, 138, 0.3);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+}
+
+.value-card i {
+    font-size: 2.5rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.value-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.leaders {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.leader {
+    text-align: center;
+}
+
+.leader-photo {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+
+.leader h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+}
+
+/* Страница контактов */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+    text-align: center;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.contact-item i {
+    font-size: 1.8rem;
+    color: var(--secondary);
+    margin-top: 5px;
+}
+
+.contact-item h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.contact-item p {
+    line-height: 1.6;
+}
+
+.social-links {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-links h4 {
+    margin-bottom: 1rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background: var(--secondary);
+    color: var(--dark);
+    transform: translateY(-5px);
+}
+
+.map-container {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.map-container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+    text-align: center;
+}
+
+.map-placeholder {
+    height: 400px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+}
+
+.map-placeholder i {
+    font-size: 4rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.map-placeholder p {
+    font-size: 1.2rem;
+}
+
+/* Анимации */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .hero-content {
+        max-width: 100%;
+        text-align: center;
+        padding: 0 10%;
+    }
+    
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    
+    #earth-container {
+        position: relative;
+        width: 100%;
+        height: 50vh;
+        margin-top: 2rem;
+    }
+    
+    .hero {
+        flex-direction: column;
+        height: auto;
+        padding-top: 100px;
+        padding-bottom: 2rem;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .welcome-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-container {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links a:not(.mobile-menu-btn) {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .page {
+        margin: 1rem;
+        padding: 5rem 1rem 2rem;
+    }
+    
+    .theme-toggle-container {
+        margin-left: 10px;
+    }
+    
+    .sidebar-menu {
+        width: 250px;
+    }
+    
+    .timeline {
+        padding-left: 20px;
+    }
+    
+    .leader-photo {
+        width: 120px;
+        height: 120px;
+    }
+    
+    #earth-container {
+        height: 40vh;
+    }
+}
