@@ -28,13 +28,13 @@
 }
 
 .sun {
-    background: radial-gradient(circle, #FFD700, #FFA500);
-    box-shadow: 0 0 40px #FFA500, 0 0 80px rgba(255, 165, 0, 0.5);
+    background: radial-gradient(circle, #ff4d4d, #d10000);
+    box-shadow: 0 0 40px #d10000, 0 0 80px rgba(209, 0, 0, 0.5);
 }
 
 .moon {
-    background: radial-gradient(circle, #E0E0E0, #B0B0B0);
-    box-shadow: 0 0 30px rgba(224, 224, 224, 0.8);
+    background: radial-gradient(circle, #ffffff, #e0e0e0);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
 }
 
 body.light-theme .moon-container {
@@ -81,23 +81,6 @@ body:not(.light-theme) #starfield {
     50% { opacity: 1; }
 }
 
-/* Контейнер для 3D облаков */
-#clouds-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2; /* Под навигацией, но над фоном */
-    pointer-events: none;
-    opacity: 0.7;
-    display: none; /* По умолчанию скрыто */
-}
-
-body.light-theme #clouds-container {
-    display: block;
-}
-
 /* Остальные стили */
 * {
     margin: 0;
@@ -108,33 +91,33 @@ body.light-theme #clouds-container {
 }
 
 :root {
-    --primary: #1e3a8a;
-    --secondary: #f59e0b;
-    --accent: #047857;
-    --light: #f8fafc;
-    --dark: #0f172a;
-    --space: #0b0f2c;
-    --card-bg: rgba(30, 58, 138, 0.4);
-    --text-color: #f8fafc;
-    --nav-bg: rgba(15, 23, 42, 0.85);
-    --page-bg: rgba(15, 23, 42, 0.6);
+    --primary: #d10000;
+    --secondary: #ffffff;
+    --accent: #ff5252;
+    --light: #ffffff;
+    --dark: #1a1a1a;
+    --space: #2c0b0b;
+    --card-bg: rgba(209, 0, 0, 0.4);
+    --text-color: #ffffff;
+    --nav-bg: rgba(26, 0, 0, 0.85);
+    --page-bg: rgba(26, 0, 0, 0.6);
 }
 
 .light-theme {
-    --primary: #2563eb;
-    --secondary: #f97316;
-    --accent: #059669;
+    --primary: #ff0000;
+    --secondary: #1a1a1a;
+    --accent: #d10000;
     --light: #ffffff;
-    --dark: #1e293b;
-    --space: #dbeafe;
+    --dark: #1a1a1a;
+    --space: #ffecec;
     --card-bg: rgba(255, 255, 255, 0.9);
-    --text-color: #1e293b;
+    --text-color: #1a1a1a;
     --nav-bg: rgba(255, 255, 255, 0.95);
     --page-bg: rgba(255, 255, 255, 0.85);
 }
 
 body {
-    background: linear-gradient(135deg, #0b0f2c, #1a1f4e, #2a2f6e);
+    background: linear-gradient(135deg, #2c0b0b, #4e1a1a, #6e2a2a);
     color: var(--text-color);
     overflow-x: hidden;
     min-height: 100vh;
@@ -142,7 +125,7 @@ body {
 }
 
 body.light-theme {
-    background: #00CED1;
+    background: linear-gradient(135deg, #ffecec, #ffd6d6, #ffbdbd);
 }
 
 /* Прелоадер */
@@ -152,7 +135,7 @@ body.light-theme {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(26, 0, 0, 0.95);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -174,7 +157,7 @@ body.light-theme {
 
 .loading svg polyline#front {
     fill: none;
-    stroke: #f59e0b;
+    stroke: #d10000;
     stroke-dasharray: 48, 144;
     stroke-dashoffset: 192;
     animation: dash_682 1.4s linear infinite;
@@ -212,7 +195,7 @@ nav {
 }
 
 .logo-icon {
-    color: var(--secondary);
+    color: var(--primary);
     font-size: 2rem;
     animation: pulse 2s infinite;
 }
@@ -227,7 +210,7 @@ nav {
     color: var(--text-color);
     font-size: 1.8rem;
     font-weight: 700;
-    text-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
+    text-shadow: 0 0 10px rgba(209, 0, 0, 0.7);
 }
 
 .nav-links {
@@ -263,7 +246,7 @@ nav {
 }
 
 .nav-links a.active {
-    background: rgba(245, 158, 11, 0.3);
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .mobile-menu-btn {
@@ -290,18 +273,18 @@ nav {
     width: 60px;
     height: 30px;
     border-radius: 30px;
-    background: linear-gradient(90deg, #f39c12, #f1c40f);
+    background: linear-gradient(90deg, #d10000, #ff5252);
     border: none;
     cursor: pointer;
     padding: 0;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(243, 156, 18, 0.5);
+    box-shadow: 0 0 10px rgba(209, 0, 0, 0.5);
     transition: all 0.5s ease;
 }
 
 body.light-theme .theme-toggle {
-    background: linear-gradient(90deg, #3498db, #2c3e50);
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+    background: linear-gradient(90deg, #ff6b6b, #ff0000);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
 .theme-icon {
@@ -351,7 +334,7 @@ body.light-theme .theme-icon.moon {
 
 body.light-theme .theme-toggle-circle {
     left: calc(100% - 27px);
-    background: #1a1f4e;
+    background: #1a1a1a;
 }
 
 /* Боковое меню */
@@ -404,7 +387,7 @@ body.light-theme .theme-toggle-circle {
 }
 
 .menu-items a:hover {
-    background: rgba(245, 158, 11, 0.2);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .menu-items a i {
@@ -467,8 +450,8 @@ body.light-theme .theme-toggle-circle {
 
 .btn {
     display: inline-block;
-    background: var(--secondary);
-    color: var(--dark);
+    background: var(--primary);
+    color: var(--light);
     padding: 0.8rem 2rem;
     border-radius: 50px;
     text-decoration: none;
@@ -477,16 +460,16 @@ body.light-theme .theme-toggle-circle {
     transition: all 0.3s ease;
     animation: fadeInUp 1s ease-out 0.4s forwards;
     opacity: 0;
-    border: 2px solid var(--secondary);
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 15px rgba(209, 0, 0, 0.5);
     cursor: pointer;
 }
 
 .btn:hover {
     background: transparent;
-    color: var(--secondary);
+    color: var(--primary);
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 20px rgba(245, 158, 11, 0.8);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 20px rgba(209, 0, 0, 0.8);
 }
 
 /* Контейнер для 3D Земли */
@@ -520,9 +503,9 @@ body.light-theme .theme-toggle-circle {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
-    color: var(--secondary);
+    color: var(--primary);
     position: relative;
-    text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+    text-shadow: 0 0 10px rgba(209, 0, 0, 0.5);
 }
 
 .page-title::after {
@@ -533,9 +516,9 @@ body.light-theme .theme-toggle-circle {
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: var(--secondary);
+    background: var(--primary);
     border-radius: 2px;
-    box-shadow: 0 0 10px var(--secondary);
+    box-shadow: 0 0 10px var(--primary);
 }
 
 /* Главная страница */
@@ -576,7 +559,7 @@ body.light-theme .theme-toggle-circle {
 
 .feature i {
     font-size: 3rem;
-    color: var(--secondary);
+    color: var(--primary);
     margin-bottom: 1rem;
 }
 
@@ -605,7 +588,7 @@ body.light-theme .theme-toggle-circle {
 .about-history h3, .about-mission h3, .about-leadership h3 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-    color: var(--secondary);
+    color: var(--primary);
     text-align: center;
 }
 
@@ -632,7 +615,7 @@ body.light-theme .theme-toggle-circle {
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--secondary);
+    background: var(--primary);
 }
 
 .timeline-item {
@@ -643,7 +626,7 @@ body.light-theme .theme-toggle-circle {
 
 .timeline-date {
     font-weight: bold;
-    color: var(--secondary);
+    color: var(--primary);
     min-width: 60px;
     font-size: 1.2rem;
 }
@@ -665,7 +648,7 @@ body.light-theme .theme-toggle-circle {
 }
 
 .value-card {
-    background: rgba(30, 58, 138, 0.3);
+    background: rgba(209, 0, 0, 0.3);
     border-radius: 10px;
     padding: 1.5rem;
     text-align: center;
@@ -678,7 +661,7 @@ body.light-theme .theme-toggle-circle {
 
 .value-card i {
     font-size: 2.5rem;
-    color: var(--secondary);
+    color: var(--primary);
     margin-bottom: 1rem;
 }
 
@@ -736,7 +719,7 @@ body.light-theme .theme-toggle-circle {
 .contact-info h3 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-    color: var(--secondary);
+    color: var(--primary);
     text-align: center;
 }
 
@@ -755,7 +738,7 @@ body.light-theme .theme-toggle-circle {
 
 .contact-item i {
     font-size: 1.8rem;
-    color: var(--secondary);
+    color: var(--primary);
     margin-top: 5px;
 }
 
@@ -798,153 +781,11 @@ body.light-theme .theme-toggle-circle {
 }
 
 .social-icons a:hover {
-    background: var(--secondary);
-    color: var(--dark);
+    background: var(--primary);
+    color: var(--light);
     transform: translateY(-5px);
 }
 
 .map-container {
     background: var(--card-bg);
-    border-radius: 15px;
-    padding: 2rem;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.map-container h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: var(--secondary);
-    text-align: center;
-}
-
-.map-placeholder {
-    height: 400px;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-color);
-}
-
-.map-placeholder i {
-    font-size: 4rem;
-    color: var(--secondary);
-    margin-bottom: 1rem;
-}
-
-.map-placeholder p {
-    font-size: 1.2rem;
-}
-
-/* Анимации */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Адаптивность */
-@media (max-width: 992px) {
-    .hero-content {
-        max-width: 100%;
-        text-align: center;
-        padding: 0 10%;
-    }
-    
-    .hero h1 {
-        font-size: 2.8rem;
-    }
-    
-    #earth-container {
-        position: relative;
-        width: 100%;
-        height: 50vh;
-        margin-top: 2rem;
-    }
-    
-    .hero {
-        flex-direction: column;
-        height: auto;
-        padding-top: 100px;
-        padding-bottom: 2rem;
-    }
-    
-    .contact-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .welcome-features {
-        grid-template-columns: 1fr;
-    }
-    
-    .about-container {
-        gap: 2rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-links a:not(.mobile-menu-btn) {
-        display: none;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-    }
-    
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-    
-    .hero p {
-        font-size: 1.1rem;
-    }
-    
-    .page-title {
-        font-size: 2rem;
-    }
-    
-    .page {
-        margin: 1rem;
-        padding: 5rem 1rem 2rem;
-    }
-    
-    .theme-toggle-container {
-        margin-left: 10px;
-    }
-    
-    .sidebar-menu {
-        width: 250px;
-    }
-    
-    .timeline {
-        padding-left: 20px;
-    }
-    
-    .leader-photo {
-        width: 120px;
-        height: 120px;
-    }
-    
-    #earth-container {
-        height: 40vh;
-    }
-}
+   
